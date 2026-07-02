@@ -12,10 +12,11 @@ const DEFAULT_TIME_ZONE = process.env.DEFAULT_TIME_ZONE || "Europe/London";
 const GOOGLE_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || "";
 const GOOGLE_SERVICE_ACCOUNT_EMAIL =
   process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "";
-const GOOGLE_PRIVATE_KEY = (process.env.GOOGLE_PRIVATE_KEY || "").replace(
-  /\\n/g,
-  "\n"
-);
+const GOOGLE_PRIVATE_KEY = String(process.env.GOOGLE_PRIVATE_KEY || "")
+  .trim()
+  .replace(/^["']|["']$/g, "")
+  .replace(/\\+n/g, "\n")
+  .replace(/\r/g, "");
 
 function respondJson(response, statusCode, body) {
   response.writeHead(statusCode, {
